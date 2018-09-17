@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="weather"
+            type="com.betomaluje.android.weathertest.classes.Weather" />
+    </data>
+
+    <RelativeLayout xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/imageView_weather"
+            android:layout_width="64dp"
+            android:layout_height="64dp" />
+
+        <TextView
+            android:id="@+id/textView_weatherName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/imageView_weather"
+            android:layout_marginStart="8dp"
+            android:layout_toEndOf="@+id/imageView_weather"
+            android:text="@{weather.weatherStateName}"
+            android:textSize="14sp"
+            tools:text="Weather Name" />
+
+        <TextView
+            android:id="@+id/textView_weatherMin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/textView_weatherName"
+            android:layout_below="@+id/textView_weatherName"
+            android:textSize="12sp"
+            tools:text="Min" />
+
+        <TextView
+            android:id="@+id/textView_weatherMax"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/textView_weatherName"
+            android:layout_below="@+id/textView_weatherMin"
+            android:textSize="12sp"
+            tools:text="Max" />
+
+    </RelativeLayout>
+</layout>
