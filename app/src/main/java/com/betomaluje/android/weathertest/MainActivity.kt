@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import com.betomaluje.android.weathertest.adapters.ViewPagerAdapter
+import com.betomaluje.android.weathertest.utils.DepthPageTransformer
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -16,6 +17,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupViewPager(pager: ViewPager) {
+        pager.setPageTransformer(true, DepthPageTransformer())
+
         val adapter = ViewPagerAdapter(supportFragmentManager)
 
         val cities = HashMap<String, String>()
@@ -51,5 +54,16 @@ class MainActivity : AppCompatActivity() {
                 toolbar.title = titles.get(position)
             }
         })
+    }
+
+    override fun onBackPressed() {
+        if (viewPager.currentItem == 0) {
+            // If the user is currently looking at the first step, allow the system to handle the
+            // Back button. This calls finish() on this activity and pops the back stack.
+            super.onBackPressed()
+        } else {
+            // Otherwise, select the previous step.
+            viewPager.currentItem = (viewPager.currentItem - 1)
+        }
     }
 }

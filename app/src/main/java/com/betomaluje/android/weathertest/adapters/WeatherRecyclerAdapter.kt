@@ -12,7 +12,6 @@ import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.weather_row.view.*
 
 class WeatherRecyclerAdapter(items: List<Weather>, context: Context?) : RecyclerView.Adapter<WeatherRecyclerAdapter.ViewHolder>() {
-
     val context = context
     val items = items
 
@@ -36,6 +35,7 @@ class WeatherRecyclerAdapter(items: List<Weather>, context: Context?) : Recycler
         val textViewWeatherName = view.textView_weatherName
         val textViewWeatherMin = view.textView_weatherMin
         val textViewWeatherMax = view.textView_weatherMax
+        val textViewWeatherDate = view.textView_weatherDate
 
         fun bind(weather: Weather) {
             weather?.let {
@@ -43,6 +43,7 @@ class WeatherRecyclerAdapter(items: List<Weather>, context: Context?) : Recycler
                 textViewWeatherName.text = weather.weatherStateName
                 textViewWeatherMin.text = StringUtils.formatTemperature(weather.minTemp)
                 textViewWeatherMax.text = StringUtils.formatTemperature(weather.maxTemp)
+                textViewWeatherDate.text = StringUtils.formatDate(weather.applicableDate)
             }
         }
     }

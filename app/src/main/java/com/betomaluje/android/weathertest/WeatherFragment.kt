@@ -12,7 +12,7 @@ import com.betomaluje.android.weathertest.classes.Weather
 import com.betomaluje.android.weathertest.databinding.WeatherPageBinding
 import com.betomaluje.android.weathertest.presenter.WeatherPresenter
 
-class WeatherFragment : Fragment(), WeatherPresenter.IWeatherPresenter {
+class WeatherFragment : Fragment(), WeatherContract.IWeatherView {
 
     lateinit var binding: WeatherPageBinding
     lateinit var woeid: String
@@ -32,7 +32,7 @@ class WeatherFragment : Fragment(), WeatherPresenter.IWeatherPresenter {
         woeid = arguments?.get("woeid").toString()
     }
 
-    fun fetchWeather() {
+    private fun fetchWeather() {
         woeid.let { WeatherPresenter(this, woeid).getWeather() }
     }
 
@@ -52,26 +52,32 @@ class WeatherFragment : Fragment(), WeatherPresenter.IWeatherPresenter {
         fetchWeather()
     }
 
-    override fun onDataStart() {
+    override fun showLoading() {
         binding.let {
             binding.progressBar.visibility = View.VISIBLE
             binding.buttonReload.visibility = View.GONE
         }
     }
 
-    override fun onDataSuccess(weatherData: List<Weather>) {
-        binding.recyclerView.layoutManager = LinearLayoutManager(activity)
-
-        binding.recyclerView.adapter = WeatherRecyclerAdapter(weatherData, context)
-
-        binding.progressBar.visibility = View.GONE
-        binding.buttonReload.visibility = View.GONE
-        binding.weather = weatherData.get(0)
-        binding.executePendingBindings()
-    }
-
-    override fun onDataError() {
+    override fun hideLoading() {
         binding.progressBar.visibility = View.GONE
         binding.buttonReload.visibility = View.VISIBLE
+    }
+
+    override fun onShowData(weatherData: List<Weather>) {
+        binding.let {
+            binding.recyclerView.layoutManager = LinearLayoutManager(activity)
+
+            binding.recyclerView.adapter = WeatherRecyclerAdapter(weatherData, context)
+
+            binding.progressBar.visibility = View.GONE
+            binding.buttonReload.visibility = View.GONE
+        }
+    }
+
+    override fun onDataError(error: String) {
+        binding.let {
+            binding.textViewError.text = error
+        }
     }
 }

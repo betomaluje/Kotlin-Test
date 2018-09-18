@@ -2,6 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
+
         <variable
             name="weather"
             type="com.betomaluje.android.weathertest.classes.Weather" />
@@ -18,12 +19,23 @@
             android:layout_height="64dp" />
 
         <TextView
-            android:id="@+id/textView_weatherName"
+            android:id="@+id/textView_weatherDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/imageView_weather"
             android:layout_marginStart="8dp"
             android:layout_toEndOf="@+id/imageView_weather"
+            android:gravity="end"
+            android:text="@{weather.applicableDate}"
+            android:textSize="12sp"
+            tools:text="Date" />
+
+        <TextView
+            android:id="@+id/textView_weatherName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/textView_weatherDate"
+            android:layout_below="@+id/textView_weatherDate"
             android:text="@{weather.weatherStateName}"
             android:textSize="14sp"
             tools:text="Weather Name" />
